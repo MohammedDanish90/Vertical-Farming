@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VerticalGrow | Smart Farming</title>
+<style>
+:root {
+  --green: #173d2b;
+  --lime: #c7f36b;
+  --cream: #f5f5ed;
+  --muted: #6e7d71;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--cream);
+  color: var(--green);
+}
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 7%; background: var(--cream);
+  position: sticky; top: 0; z-index: 10;
+  border-bottom: 1px solid #dfe5d9;
+}
+.logo { font-size: 23px; font-weight: 800; letter-spacing: -1px; }
+.logo span { color: #75a83a; }
+.navlinks { display: flex; gap: 28px; align-items: center; }
+a { text-decoration: none; color: inherit; }
+.navlinks a:hover { color: #689c36; }
+.btn {
+  display: inline-block; border: 0; cursor: pointer;
+  background: var(--lime); color: var(--green);
+  padding: 14px 22px; border-radius: 30px;
+  font-weight: 700; transition: .2s;
+}
+.btn:hover { transform: translateY(-2px); background: #b6e858; }
+.menu { display: none; background: none; border: 0; font-size: 25px; }
+.hero {
+  padding: 75px 7% 65px; display: grid;
+  grid-template-columns: 1fr 1fr; gap: 45px; align-items: center;
+}
+.tag {
+  display: inline-block; padding: 9px 14px;
+  border-radius: 30px; background: #e3edda;
+  font-size: 12px; font-weight: 700; margin-bottom: 25px;
+}
+h1 { font-size: clamp(43px, 5.5vw, 72px); line-height: 1.03; letter-spacing: -3px; }
+h1 em { color: #6a9c3d; font-style: normal; }
+.hero p { color: var(--muted); line-height: 1.8; margin: 24px 0; max-width: 490px; }
+.hero-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.secondary { font-weight: 700; padding: 12px 0; }
+.hero-image {
+  min-height: 450px; border-radius: 25px; overflow: hidden;
+  position: relative; background: #254b35;
+}
+.hero-image img {
+  width: 100%; height: 450px; object-fit: cover;
+  display: block;
+}
+.image-label {
+  position: absolute; bottom: 20px; left: 20px; right: 20px;
+  padding: 18px; border-radius: 15px;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+}
+.image-label strong { display: block; margin-bottom: 6px; }
+.image-label small { color: var(--muted); }
+.stats {
+  background: var(--green); color: white;
+  padding: 35px 7%; display: grid;
+  grid-template-columns: repeat(4,1fr); gap: 25px;
+}
+.stat strong { display: block; font-size: 32px; color: var(--lime); margin-bottom: 8px; }
+.stat span { font-size: 13px; color: #c8d5c9; }
+section { padding: 85px 7%; }
+.section-head { max-width: 650px; margin-bottom: 38px; }
+.section-head h2 { font-size: clamp(32px,4vw,46px); letter-spacing: -1.5px; }
+.section-head p { margin-top: 14px; line-height: 1.8; color: var(--muted); }
+.features { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.feature {
+  padding: 27px; background: white;
+  border-radius: 18px; border: 1px solid #e6e9df;
+}
+.feature .emoji { font-size: 32px; margin-bottom: 23px; }
+.feature h3 { margin-bottom: 12px; }
+.feature p { color: var(--muted); line-height: 1.7; font-size: 14px; }
+.dashboard-section { background: #e9eee2; }
+.dashboard {
+  background: white; padding: 28px; border-radius: 22px;
+  box-shadow: 0 10px 35px #163b2910;
+}
+.dash-top { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+.live { color: #438638; font-size: 13px; font-weight: 700; }
+.metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; }
+.metric { padding: 20px; background: #f4f6f0; border-radius: 14px; }
+.metric span { color: var(--muted); font-size: 13px; }
+.metric h3 { font-size: 30px; margin: 12px 0 5px; }
+.metric small { color: #6b963d; }
+.crop-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.crop {
+  background: white; border-radius: 18px; overflow: hidden;
+  border: 1px solid #e7e9e0;
+}
+.crop img { width: 100%; height: 210px; object-fit: cover; display: block; }
+.crop-body { padding: 22px; }
+.crop-body p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 10px 0 17px; }
+.pill { font-size: 12px; background: #e8f1df; padding: 7px 10px; border-radius: 20px; }
+.cta {
+  margin: 20px 7% 80px; padding: 55px;
+  background: var(--green); color: white; border-radius: 24px;
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 25px; flex-wrap: wrap;
+}
+.cta h2 { font-size: clamp(30px,4vw,43px); margin-bottom: 12px; }
+.cta p { color: #c8d5c9; line-height: 1.7; }
+footer {
+  padding: 28px 7%; display: flex; justify-content: space-between;
+  gap: 15px; flex-wrap: wrap; color: var(--muted);
+  border-top: 1px solid #dfe5d9; font-size: 13px;
+}
+@media(max-width:800px) {
+  .hero { grid-template-columns: 1fr; padding-top: 45px; }
+  .hero-image, .hero-image img { min-height: 330px; height: 330px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .features, .crop-grid { grid-template-columns: 1fr 1fr; }
+  .navlinks {
+    display: none; position: absolute; top: 70px; left: 0; right: 0;
+    background: var(--cream); padding: 25px 7%;
+    flex-direction: column; align-items: flex-start;
+    border-bottom: 1px solid #ddd;
+  }
+  .navlinks.open { display: flex; }
+  .menu { display: block; }
+}
+@media(max-width:520px) {
+  .features, .crop-grid, .metrics { grid-template-columns: 1fr; }
+  section { padding: 60px 6%; }
+  .hero { padding-left: 6%; padding-right: 6%; }
+  .stats { padding-left: 6%; padding-right: 6%; }
+  .cta { margin: 10px 5% 50px; padding: 30px 23px; }
+  h1 { letter-spacing: -2px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#home">Vertical<span>Grow.</span></a>
+  <div class="navlinks" id="navlinks">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#technology" onclick="closeMenu()">Technology</a>
+    <a href="#crops" onclick="closeMenu()">Crops</a>
+    <a href="#dashboard" onclick="closeMenu()">Dashboard</a>
+    <a href="#contact" class="btn" onclick="closeMenu()">Get Started ↗</a>
+  </div>
+  <button class="menu" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+</nav>
+
+<main>
+<section class="hero" id="home">
+  <div>
+    <span class="tag">🌱 THE FUTURE OF AGRICULTURE</span>
+    <h1>Grow More.<br>Use Less.<br><em>Live Green.</em></h1>
+    <p>
+      Discover vertical farming — a smarter way to grow fresh,
+      healthy food in less space, using innovative technology
+      and sustainable practices.
+    </p>
+    <div class="hero-actions">
+      <a href="#about" class="btn">Explore Farming ↗</a>
+      <a href="#dashboard" class="secondary">View Dashboard →</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img
+      src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=1000&q=85"
+      alt="Green plants growing in a modern farm"
+    >
+    <div class="image-label">
+      <strong>🌿 Farming meets innovation</strong>
+      <small>Fresh food. Smarter systems. Greener future.</small>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><strong>90%*</strong><span>Potential water savings</span></div>
+  <div class="stat"><strong>365</strong><span>Days of growing potential</span></div>
+  <div class="stat"><strong>Less</strong><span>Land required per growing area</span></div>
+  <div class="stat"><strong>Local</strong><span>Fresh food near consumers</span></div>
+</div>
+
+<section id="about">
+  <div class="section-head">
+    <h2>What is Vertical Farming?</h2>
+    <p>
+      Vertical farming grows plants in stacked layers, often indoors.
+      Instead of depending entirely on traditional fields, farms can
+      control light, water, nutrients and temperature.
+    </p>
+  </div>
+  <div class="features">
+    <article class="feature">
+      <div class="emoji">💧</div>
+      <h3>Water Efficiency</h3>
+      <p>Hydroponic systems can recirculate water, helping reduce water use compared with many conventional growing methods.</p>
+    </article>
+    <article class="feature">
+      <div class="emoji">🏢</div>
+      <h3>Grow Vertically</h3>
+      <p>Stack growing trays to make better use of available floor space in urban and indoor environments.</p>
+    </article>
+    <article class="feature">
+      <div class="emoji">🌞</div>
+      <h3>Smart Climate</h3>
+      <p>Monitor light, humidity and temperature to create suitable growing conditions for different crops.</p>
+    </article>
+  </div>
+</section>
+
+<section class="dashboard-section" id="dashboard">
+  <div class="section-head">
+    <h2>Smart Farm Dashboard</h2>
+    <p>A sample monitoring interface for a modern vertical farm. These are demonstration values, not readings from real sensors.</p>
+  </div>
+  <div class="dashboard">
+    <div class="dash-top">
+      <div>
+        <h3>Farm Overview</h3>
+        <p style="color:#6e7d71;margin-top:6px;font-size:13px">Growing room · Demo environment</p>
+      </div>
+      <span class="live">● DEMO MODE</span>
+    </div>
+    <div class="metrics">
+      <div class="metric">
+        <span>🌡️ Temperature</span>
+        <h3 id="temp">24°C</h3>
+        <small>Sample reading</small>
+      </div>
+      <div class="metric">
+        <span>💧 Humidity</span>
+        <h3 id="humidity">65%</h3>
+        <small>Sample reading</small>
+      </div>
+      <div class="metric">
+        <span>🌱 Growing trays</span>
+        <h3>120</h3>
+        <small>Illustrative capacity</small>
+      </div>
+    </div>
+    <button class="btn" style="margin-top:22px" onclick="refreshDemo()">Refresh Demo Values ↻</button>
+    <p id="refresh-note" aria-live="polite" style="margin-top:12px;color:#6e7d71;font-size:12px">Values are simulated for this project.</p>
+  </div>
+</section>
+
+<section id="technology">
+  <div class="section-head">
+    <h2>Technology That Helps Plants Thrive</h2>
+    <p>Different growing methods make vertical farming adaptable to different spaces, crops and budgets.</p>
+  </div>
+  <div class="features">
+    <article class="feature">
+      <div class="emoji">🌊</div>
+      <h3>Hydroponics</h3>
+      <p>Plants grow without soil, using a nutrient-rich water solution and a suitable support system.</p>
+    </article>
+    <article class="feature">
+      <div class="emoji">🌫️</div>
+      <h3>Aeroponics</h3>
+      <p>Plant roots are suspended and supplied with a fine mist of water and nutrients.</p>
+    </article>
+    <article class="feature">
+      <div class="emoji">💡</div>
+      <h3>LED Grow Lights</h3>
+      <p>Adjustable lighting can provide plants with the light spectrum and duration needed for growth.</p>
+    </article>
+  </div>
+</section>
+
+<section id="crops">
+  <div class="section-head">
+    <h2>What Can You Grow?</h2>
+    <p>Leafy greens and herbs are common starting points for indoor farms. Crop choice depends on lighting, operating costs and market demand.</p>
+  </div>
+  <div class="crop-grid">
+    <article class="crop">
+      <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=700&q=80" alt="Fresh green lettuce leaves">
+      <div class="crop-body">
+        <h3>🥬 Lettuce</h3>
+        <p>A popular crop for hydroponic systems because of its compact growth and relatively short growing cycle.</p>
+        <span class="pill">Beginner friendly</span>
+      </div>
+    </article>
+    <article class="crop">
+      <img src="https://images.unsplash.com/photo-1618164436241-4473940d1f5c?auto=format&fit=crop&w=700&q=80" alt="Fresh basil and green herbs">
+      <div class="crop-body">
+        <h3>🌿 Basil & Herbs</h3>
+        <p>Herbs can work well in controlled environments when light, airflow and nutrients are managed properly.</p>
+        <span class="pill">High-value potential</span>
+      </div>
+    </article>
+    <article class="crop">
+      <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=80" alt="Fresh mixed salad vegetables">
+      <div class="crop-body">
+        <h3>🥗 Microgreens</h3>
+        <p>Young edible greens harvested early. They can be suitable for small growing spaces and local markets.</p>
+        <span class="pill">Short growing cycle</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="cta" id="contact">
+  <div>
+    <h2>Ready to Grow Smarter?</h2>
+    <p>Explore sustainable farming and take the first step toward a greener future.</p>
+  </div>
+  <a class="btn" href="mailto:hello@verticalgrow.example?subject=Vertical%20Farming%20Enquiry">Contact Us ↗</a>
+</div>
+</main>
+
+<footer>
+  <a class="logo" href="#home">Vertical<span>Grow.</span></a>
+  <p>Growing a greener future, one layer at a time.</p>
+  <p>© <span id="year"></span> VerticalGrow · Educational project</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById("navlinks").classList.toggle("open");
+}
+function closeMenu() {
+  document.getElementById("navlinks").classList.remove("open");
+}
+function refreshDemo() {
+  document.getElementById("temp").textContent =
+    (22 + Math.floor(Math.random() * 6)) + "°C";
+  document.getElementById("humidity").textContent =
+    (55 + Math.floor(Math.random() * 21)) + "%";
+  document.getElementById("refresh-note").textContent =
+    "Demo values updated. No physical sensors are connected.";
+}
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
